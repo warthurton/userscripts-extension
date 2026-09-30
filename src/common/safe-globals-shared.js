@@ -9,6 +9,9 @@
 const global = __.TEST ? globalThis : this; // eslint-disable-line no-undef
 const window = __.SW ? global : global.window; // it's unforgeable so we extract it primarily to improve minification
 export const VIOLENTMONKEY = 'Violentmonkey';
+/** User-visible name of this build, set at compile time in `fork-brand/brand.config.js`.
+ * `VIOLENTMONKEY` is kept as-is for storage keys, sync folders and `GM_info.scriptHandler`. */
+export const BRAND = __.BRAND || VIOLENTMONKEY;
 export const AUTO = 'auto';
 export const CONTENT = 'content';
 export const ERROR = 'error';

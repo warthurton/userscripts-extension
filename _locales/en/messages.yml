@@ -1,3 +1,8 @@
+buttonAllowSite:
+  description: >-
+    Button in the popup that adds the current site to the list of sites where userscripts are
+    allowed to run.
+  message: Allow userscripts on this site
 buttonApply:
   description: Apply button on dialog that applies changes without closing the dialog.
   message: Apply

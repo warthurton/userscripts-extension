@@ -54,7 +54,7 @@ export const safeGetUniqId = (prefix = '') => prefix + (
 
 /** args is [tags?, ...rest] */
 export const log = (level, ...args) => {
-  let s = `[${VIOLENTMONKEY}]`;
+  let s = `[${BRAND}]`;
   if (args[0]) args[0]::forEach(tag => { s += `[${tag}]`; });
   args[0] = s;
   safeApply(logging[level], logging, args);

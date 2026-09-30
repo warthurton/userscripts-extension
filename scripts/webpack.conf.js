@@ -7,6 +7,7 @@ const { getVersion } = require('./version-helper');
 const { MV3 } = require('./common');
 const { configLoader } = require('./config-helper');
 const { getBaseConfig, getPageConfig, isProd } = require('./webpack-base');
+const forkBrand = require('../fork-brand');
 
 // Avoiding collisions with globals of a content-mode userscript
 const INIT_FUNC_NAME = '**VMInitInjection**';
@@ -47,6 +48,7 @@ const defsObj = {
     'SYNC_DROPBOX_CLIENT_ID',
   ]),
   ...Object.fromEntries(Object.entries({
+    ...forkBrand.getDefines(),
     INIT_FUNC_NAME,
     MV3,
     CODEMIRROR_THEMES: getCodeMirrorThemes(),

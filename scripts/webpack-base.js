@@ -10,6 +10,7 @@ const deepmerge = require('deepmerge');
 const escapeStringRegexp = require('escape-string-regexp').default;
 const GroupAssetsPlugin = require('./webpack-group-assets-plugin');
 const { alias, extensions, isProd, MV3, DIST } = require('./common');
+const forkBrand = require('../fork-brand');
 
 const defaultHtmlOptions = {
   minify: isProd && {
@@ -64,7 +65,7 @@ const createHtmlPage = key => new HtmlWebpackPlugin({
   ...defaultHtmlOptions,
   filename: `${key}/index.html`,
   chunks: [`${key}/index`],
-  title: 'Violentmonkey',
+  title: forkBrand.getName(),
   scriptLoading: 'blocking', // we don't need `defer` and it breaks in some browsers, see #1632
   inject: false,
   // For GroupAssetsPlugin, inject only `index.js` into `body` to avoid FOUC

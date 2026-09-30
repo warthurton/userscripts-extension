@@ -61,6 +61,7 @@
          :href="store.infoUrl"/>
       <span v-else v-text="store.failureText"/>
       <code v-text="store.blacklisted" v-if="store.blacklisted" class="ellipsis inline-block"/>
+      <button v-if="canAllowSite" v-text="i18n('buttonAllowSite')" @click="onAllowSite"/>
     </div>
     <div v-if="showSettings" class="mb-1c menu settings">
       <settings-popup/>
@@ -225,7 +226,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, reactive, ref } from 'vue';
-import { VM_DOCS_INJECT_INTO, VM_DOCS_MATCHING } from '@/common/consts';
+import { BLACKLIST, VM_DOCS_INJECT_INTO, VM_DOCS_MATCHING } from '@/common/consts';
 import options from '@/common/options';
 import optionsDefaults, {
   kFiltersPopup, kPopupWidth, kUpdateEnabledScriptsOnly,
@@ -277,6 +278,9 @@ const injectionScopes = computed(makeInjectionScopes);
 const findUrls = computed(makeFindUrls);
 const reloadHint = computed(makeReloadHint);
 const tabIndex = computed(() => extras.value ? -1 : 0);
+const canAllowSite = computed(() => __.MANUAL_SITE_ACCESS
+  && store.failure === 'blacklisted'
+  && /^https?:\/\//.test(store.tab?.url || ''));
 
 options.hook((changes) => {
   for (const key in optionsData) {
@@ -310,6 +314,16 @@ function compareByCoord({ rect: a }, { rect: b }) {
 }
 function reloadTab() {
   return browser.tabs.reload(store.tab.id);
+}
+/** Adds the current site to the allowed ones, see `manualSiteAccess` in fork-brand */
+async function onAllowSite() {
+  const { host } = await sendCmdDirectly('GetTabDomain', store.tab.url);
+  const rule = `@match *://${host}/*`;
+  const list = options.get(BLACKLIST) || '';
+  if (!list.split('\n').some(line => line.trim() === rule)) {
+    await options.set(BLACKLIST, `${rule}\n${list}`);
+  }
+  return reloadTab();
 }
 function makeActiveLinks() {
   const script = extras.value;

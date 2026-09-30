@@ -30,7 +30,9 @@ export const defaultsEditor = {
 
 export default {
   [IS_APPLIED]: true,
-  [BLACKLIST]: FILE_GLOB_ALL,
+  /* With `manualSiteAccess` (fork-brand/brand.config.js) the catch-all rule blocks every site
+   * until the user allows it explicitly from the popup. */
+  [BLACKLIST]: __.MANUAL_SITE_ACCESS ? `${FILE_GLOB_ALL}\n*` : FILE_GLOB_ALL,
   [BLACKLIST_NET]: FILE_GLOB_ALL,
   [kPopupWidth]: 320,
   [kUpdateEnabledScriptsOnly]: true,
@@ -103,7 +105,7 @@ export default {
   [kScriptTemplate]: `\
 // ==UserScript==
 // @name        New script {{name}}
-// @namespace   ${VIOLENTMONKEY} Scripts
+// @namespace   ${BRAND} Scripts
 // @icon        {{icon}}
 // @version     1.0.0
 //

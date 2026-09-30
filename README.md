@@ -1,3 +1,28 @@
+> ## About this fork
+>
+> This repository is a **cosmetic** fork of [Violentmonkey](https://github.com/violentmonkey/violentmonkey).
+> Nothing below this box is our work: all the engineering, all the features and all the credit
+> belong to the Violentmonkey authors and contributors. We didn't fix anything, invent anything or
+> improve anything — we only changed the label on the jar.
+>
+> Why? Because explaining to the compliance officer, mid-screenshot, that the "violent monkey" in
+> the corner of the browser is a *userscript manager* and not an HR incident is a conversation that
+> never ends well. Our legal department has approved exactly zero primates and negative two acts of
+> violence. So the build now wears a polite grey shirt, answers to **UserScripts**, and shows a
+> boring page-with-code icon that no one will ever screenshot into an incident report.
+>
+> Same monkey. Same brilliant monkey. Just in a tie, and asked to stop shouting in meetings.
+>
+> What this fork actually changes, all of it at **compile time** from the out-of-tree
+> [`fork-brand/`](fork-brand/) folder, so that upstream sources stay untouched and syncing stays trivial:
+>
+> - the displayed name, the page titles, the console prefix and the icon;
+> - the `GM_*` APIs that are compiled in — the disabled ones are physically removed from the bundle
+>   and replaced by a stub that logs an error and throws it back to the userscript;
+> - site access: userscripts run only on the sites you allow explicitly from the extension popup.
+>
+> See [`fork-brand/README.md`](fork-brand/README.md) for the configuration.
+
 # Violentmonkey
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jinjaccalgkegednnccohejagnlnfdag.svg)](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)

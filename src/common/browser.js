@@ -82,7 +82,7 @@ if (__.INJECTED === 'injected-web') {
         } catch (e) {
           if (e[MESSAGE] === 'Extension context invalidated.') {
             /* global logging */// only used with __.INJECTED=content
-            logging.error(`Please reload the tab to restore ${VIOLENTMONKEY} API for userscripts.`);
+            logging.error(`Please reload the tab to restore ${BRAND} API for userscripts.`);
           } else {
             throw e;
           }

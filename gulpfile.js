@@ -10,6 +10,7 @@ const { getVersion, isBeta } = require('./scripts/version-helper');
 const { buildManifest } = require('./scripts/manifest-helper');
 const pkg = require('./package.json');
 const { MV3, DIST } = require('./scripts/common');
+const forkBrand = require('./fork-brand');
 
 const paths = {
   manifest: 'src/manifest.yml',
@@ -63,7 +64,7 @@ async function createIcons() {
   const ALPHA = 0.5;
   const dist = `${DIST}/public/images`;
   await fs.mkdir(dist, { recursive: true });
-  const icon = Sharp(`src/resources/icon${isBeta() ? '-beta' : ''}.png`);
+  const icon = Sharp(forkBrand.getIconPath(isBeta()), { density: 384 }).png();
   const gray = icon.clone().grayscale();
   const transparent = icon.clone().composite([{
     input: Buffer.from([255, 255, 255, 256 * ALPHA]),
@@ -136,6 +137,7 @@ function copyI18n() {
     extension: '.json',
     stripDescriptions: true,
   })
+  .pipe(forkBrand.rebrandLocales())
   .pipe(gulp.dest(`${DIST}/_locales`));
 }
 

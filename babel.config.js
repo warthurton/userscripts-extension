@@ -26,6 +26,7 @@ module.exports = {
       extensions,
     }],
     './scripts/babel-plugin-safe-bind.js',
+    './fork-brand/babel-plugin-block-gm-api.js',
     ['babel-plugin-transform-regex', {
       removeImport: true,
       disableUnicodeSets: true,

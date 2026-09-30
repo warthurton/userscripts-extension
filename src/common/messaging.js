@@ -104,7 +104,7 @@ export async function sendMessageRetry(payload, maxDuration = 10e3) {
     // Not using setTimeout which may be cleared by the web page
     if (!__.MV3) await browser.storage.local.get(VIOLENTMONKEY);
   }
-  throw new Error(VIOLENTMONKEY + ' cannot connect to the background page.');
+  throw new Error(BRAND + ' cannot connect to the background page.');
 }
 
 export function ignoreNoReceiver(err) {
